@@ -13,9 +13,34 @@ export class DashboardComponent implements OnInit {
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
   wait = ms => new Promise((r, j)=>setTimeout(r, ms))
-  myData: Number[] = this.randomArray(50, 1000);
+  numberOfElements:Number = 30;
+  myData: Number[] ;
+  sliderDisabled: boolean = false;
+  sliderInvert:boolean = false;
+  sliderMax:number = 100;
+  sliderMin:number = 30;
+  sliderStep:number = 1;
+  autoTicks = false;
+  showTicks = false;
+  thumbLabel = true;
+  sliderVertical = false;
+  allAlgos = ['Selection Sort'];
+  selectedAlgo;
   ngOnInit() {
-    this.selectionSort();
+    this.myData = this.randomArray(this.numberOfElements, 1000);
+    this.createChart('chart',this.myData);
+  }
+  changeArray(val) {
+    this.myData = this.randomArray(this.numberOfElements, 1000);
+    this.createChart('chart',this.myData);
+    // console.log('change');
+  }
+  submit() {
+    switch (this.selectedAlgo) {
+      case 'Selection Sort':
+        this.selectionSort();
+        break;
+    }
   }
   async selectionSort(){
     // let wait = ms => new Promise((r, j)=>setTimeout(r, ms))

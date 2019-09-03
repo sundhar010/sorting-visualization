@@ -16,6 +16,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {MatSliderModule} from '@angular/material/slider';
+import { FormsModule } from '@angular/forms';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatSliderModule,
+    FormsModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
