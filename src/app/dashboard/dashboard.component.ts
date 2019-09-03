@@ -37,11 +37,12 @@ export class DashboardComponent implements OnInit {
       .scaleBand()
       .domain(d3.range(data.length).map(d => d + ''))
       .rangeRound([0, width])
-      .paddingInner(0.05);
+      .paddingInner(0.1);
     console.log(xscale(600 + ''));
     console.log(data);
+    d3.select('#' + id).selectAll('*').remove();
     d3.select('#' + id)
-      .selectAll('svg')
+      .append('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
