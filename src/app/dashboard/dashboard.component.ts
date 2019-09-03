@@ -12,22 +12,13 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
+  wait = ms => new Promise((r, j)=>setTimeout(r, ms))
   myData: Number[] = this.randomArray(50, 1000);
   ngOnInit() {
-    // let i = 0,howManyTimes = 100;
-    // let parent = this;
     this.selectionSort();
-    // let f = () => {
-    //   parent.createChart('chart', parent.myData, i);
-    //   i++;
-    //   if (i < howManyTimes) {
-    //     setTimeout(f, 500);
-    //   }
-    // };
-    // f();
   }
   async selectionSort(){
-    let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
+    // let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
     for(let i = 0; i < this.myData.length; i++) {
       let minIndex = i;
       let min = this.myData[i];
@@ -37,14 +28,14 @@ export class DashboardComponent implements OnInit {
           minIndex = j;
         }
         this.createChart('chart', this.myData, i, j);
-        await wait(100);
+        await this.wait(100);
       }
       this.createChart('chart', this.myData, i, minIndex);
-      await wait(500);
+      await this.wait(500);
       this.myData[minIndex] = this.myData[i];
       this.myData[i] = min;
       this.createChart('chart', this.myData, i, minIndex);
-      await wait(200);
+      await this.wait(200);
 
 
     }
