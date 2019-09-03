@@ -14,9 +14,9 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   ngOnInit() {
     const data = this.randomArray(100, 1000);
-    this.createChart(data);
+    this.createChart(data, 50);
   }
-  createChart(data) {
+  createChart(data, index = -1) {
     const margin = { top: 20, right: 10, bottom: 20, left: 10 };
     const height = 500 - margin.top - margin.bottom;
     const width = 1250 - margin.left - margin.right;
@@ -42,7 +42,12 @@ export class DashboardComponent implements OnInit {
       .data(data)
       .enter()
       .append('rect')
-      .style('fill', 'rgb(33, 150, 243)')
+      .style('fill', (d,i) => {
+        if( i === index) {
+          return "red";
+        }
+        return 'rgb(33, 150, 243)';
+      })
       .attr('width', xscale.bandwidth())
       .attr('height', function(d) {
         return yscale(d);
