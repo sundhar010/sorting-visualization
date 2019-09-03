@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import * as d3 from 'd3';
+import { timer } from 'd3';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +9,23 @@ import * as d3 from 'd3';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  /** Based on the screen size, switch from standard to one column per row */
+  constructor() {}
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
-  constructor() {}
+  myData: Array[] = this.randomArray(100, 1000);
   ngOnInit() {
-    const data = this.randomArray(100, 1000);
-    this.createChart(data, 50);
+    let i = 0,howManyTimes = 100;
+    let parent = this;
+    let f = () => {
+      parent.createChart('chart', parent.myData, i);
+      i++;
+      if (i < howManyTimes) {
+        setTimeout(f, 500);
+      }
+    };
+    f();
   }
-  createChart(data, index = -1) {
+  createChart(id, data, index = -1) {
     const margin = { top: 20, right: 10, bottom: 20, left: 10 };
     const height = 500 - margin.top - margin.bottom;
     const width = 1250 - margin.left - margin.right;
@@ -31,8 +40,8 @@ export class DashboardComponent implements OnInit {
       .paddingInner(0.05);
     console.log(xscale(600 + ''));
     console.log(data);
-    d3.select('#chart')
-      .append('svg')
+    d3.select('#' + id)
+      .selectAll('svg')
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
@@ -42,9 +51,9 @@ export class DashboardComponent implements OnInit {
       .data(data)
       .enter()
       .append('rect')
-      .style('fill', (d,i) => {
-        if( i === index) {
-          return "red";
+      .style('fill', (d, i) => {
+        if (i === index) {
+          return 'red';
         }
         return 'rgb(33, 150, 243)';
       })
