@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
-  myData: Number[] = this.randomArray(30, 1000);
+  myData: Number[] = this.randomArray(50, 1000);
   ngOnInit() {
     // let i = 0,howManyTimes = 100;
     // let parent = this;
