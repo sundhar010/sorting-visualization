@@ -12,7 +12,9 @@
   margin-left: 10px;
   margin-right:10px;
   width: 100%;
+  margin-top: 5px;
 }
 .sort-btn {
   float: right;
+  margin-top: 10px;
 }

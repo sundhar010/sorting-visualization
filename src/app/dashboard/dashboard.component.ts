@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
     this.myData = this.randomArray(this.numberOfElements, 1000);
     this.createChart('chart',this.myData);
   }
-  changeArray(val) {
+  changeArray() {
     this.myData = this.randomArray(this.numberOfElements, 1000);
     this.createChart('chart',this.myData);
     // console.log('change');
