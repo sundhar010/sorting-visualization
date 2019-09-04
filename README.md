@@ -1,5 +1,6 @@
 # Sort
-
+1. ng build --prod --base-href "https://sundhar010.github.io/angular-ghpages/"
+2. ngh --dir dist/angular-ghpages
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
 ## Development server
