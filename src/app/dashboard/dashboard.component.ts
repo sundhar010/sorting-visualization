@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { map } from 'rxjs/operators';
 import * as d3 from 'd3';
 import { timer } from 'd3';
@@ -10,29 +10,36 @@ import { timer } from 'd3';
 })
 export class DashboardComponent implements OnInit {
   constructor() {}
-  randomArray = (length, max) =>
-    [...new Array(length)].map(() => Math.round(Math.random() * max))
-  wait = ms => new Promise((r, j)=>setTimeout(r, ms))
-  numberOfElements:Number = 30;
-  myData: Number[] ;
-  sliderDisabled: boolean = false;
-  sliderInvert:boolean = false;
-  sliderMax:number = 100;
-  sliderMin:number = 30;
-  sliderStep:number = 1;
+  @ViewChild('container', { static: false }) container: ElementRef;
+  numberOfElements: Number = 30;
+  myData: Number[];
+  sliderDisabled = false;
+  sliderInvert = false;
+  sliderMax = 100;
+  sliderMin = 30;
+  sliderStep = 1;
   autoTicks = false;
   showTicks = false;
   thumbLabel = true;
   sliderVertical = false;
   allAlgos = ['Selection Sort'];
   selectedAlgo;
-  ngOnInit() {
+  chartWidth;
+  chartHeight;
+  randomArray = (length, max) =>
+    [...new Array(length)].map(() => Math.round(Math.random() * max))
+  wait = ms => new Promise((r, j) => setTimeout(r, ms));
+  ngOnInit() {}
+  ngAfterViewInit() {
+    console.log(this.container.nativeElement.offsetWidth);
+    this.chartHeight = 500;
+    this.chartWidth = this.container.nativeElement.offsetWidth;
     this.myData = this.randomArray(this.numberOfElements, 1000);
-    this.createChart('chart',this.myData);
+    this.createChart('chart', this.myData);
   }
   changeArray() {
     this.myData = this.randomArray(this.numberOfElements, 1000);
-    this.createChart('chart',this.myData);
+    this.createChart('chart', this.myData);
     // console.log('change');
   }
   submit() {
@@ -42,13 +49,13 @@ export class DashboardComponent implements OnInit {
         break;
     }
   }
-  async selectionSort(){
+  async selectionSort() {
     // let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
-    for(let i = 0; i < this.myData.length; i++) {
+    for (let i = 0; i < this.myData.length; i++) {
       let minIndex = i;
       let min = this.myData[i];
-      for(let j = i; j < this.myData.length; j++) {
-        if(this.myData[j] <= min) {
+      for (let j = i; j < this.myData.length; j++) {
+        if (this.myData[j] <= min) {
           min = this.myData[j];
           minIndex = j;
         }
@@ -61,14 +68,12 @@ export class DashboardComponent implements OnInit {
       this.myData[i] = min;
       this.createChart('chart', this.myData, i, minIndex);
       await this.wait(200);
-
-
     }
   }
   createChart(id, data, indexI = -1, indexJ = -1) {
     const margin = { top: 20, right: 10, bottom: 20, left: 10 };
-    const height = 500 - margin.top - margin.bottom;
-    const width = 1250 - margin.left - margin.right;
+    const height = this.chartHeight - margin.top - margin.bottom;
+    const width = this.chartWidth - margin.left - margin.right;
     const yscale = d3
       .scaleLinear()
       .domain([0, +d3.max(data)])
@@ -78,7 +83,9 @@ export class DashboardComponent implements OnInit {
       .domain(d3.range(data.length).map(d => d + ''))
       .rangeRound([0, width])
       .paddingInner(0.1);
-    d3.select('#' + id).selectAll('*').remove();
+    d3.select('#' + id)
+      .selectAll('*')
+      .remove();
     d3.select('#' + id)
       .append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -93,8 +100,7 @@ export class DashboardComponent implements OnInit {
       .style('fill', (d, i) => {
         if (i === indexI) {
           return 'red';
-        }
-        else if( i=== indexJ) {
+        } else if (i === indexJ) {
           return 'lightgreen';
         }
         return 'rgb(33, 150, 243)';
@@ -109,5 +115,10 @@ export class DashboardComponent implements OnInit {
       .attr('y', function(d) {
         return height - yscale(+d);
       });
+  }
+  @HostListener('window:resize')
+  public detectResize(): void {
+    this.chartWidth = this.container.nativeElement.offsetWidth;
+    this.createChart('chart', this.myData);
   }
 }
