@@ -4,13 +4,13 @@
     <div class="options">
 
       <div class="mdl-grid mdl-grid--nesting">
-        <div class="mdl-cell mdl-cell--3-col"> <span class="slider-lable">Number of Elements:</span>
+        <div class="mdl-cell mdl-cell--5-col"> <span class="slider-lable">Number of Elements:</span>
           <mat-slider class="example-margin" [disabled]="sliderDisabled" [invert]="sliderInvert" [max]="sliderMax"
             [min]="sliderMin" [step]="sliderStep" [thumbLabel]="thumbLabel" [(ngModel)]="numberOfElements"
             [vertical]="sliderVertical" (change)="changeArray()">
           </mat-slider>
         </div>
-        <div class="mdl-cell mdl-cell--6-col">
+        <div class="mdl-cell mdl-cell--5-col">
 
           <mat-form-field class="algo-select">
             <mat-label>Algo</mat-label>
@@ -21,7 +21,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="mdl-cell mdl-cell--3-col">
+        <div class="mdl-cell mdl-cell--2-col">
           <button class=" sort-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
             (click)="submit()">
             Sort
