@@ -10,3 +10,6 @@
 or
 
 1.`npm run deploy`
+
+## License & copyright
+Licensed under the [MIT License][LICENSE]
