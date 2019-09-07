@@ -1,4 +1,4 @@
-# Sort
+# Sorting-visualization
 
 ![](src/assets/captured.gif)
 
