@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   showTicks = false;
   thumbLabel = true;
   sliderVertical = false;
-  allAlgos = ['Selection Sort', 'Bubble Sort'];
+  allAlgos = ['Selection Sort', 'Bubble Sort', 'Insertion Sort'];
   selectedAlgo;
   chartWidth;
   chartHeight;
@@ -62,10 +62,35 @@ export class DashboardComponent implements OnInit {
         this.bubbleSort();
         this.sortDissable = false;
         break;
+      case 'Insertion Sort':
+        this.sortDissable = true;
+        this.insertionSort();
+        this.sortDissable = false;
+        break;
     }
+
+  }
+  async insertionSort() {
+    for(let i = 1; i < this.myData.length; i++) {
+      let j = i - 1;
+      let key = this.myData[i];
+      let dummyData = Array.from(this.myData);
+      this.createChart('chart',dummyData,i);
+      await this.wait(this.pace);
+      while(this.myData[j] > key) {
+        if(j < 0) { break; }
+        this.myData[j+1] = this.myData[j];
+        this.createChart('chart',dummyData,i,j);
+        await this.wait(this.pace);
+        j--;
+      }
+      this.myData[j + 1] = key;
+      this.createChart('chart', this.myData, j+1);
+      await this.wait(this.pace);
+    }
+
   }
   async selectionSort() {
-    // let wait = ms => new Promise((r, j)=>setTimeout(r, ms))
     for (let i = 0; i < this.myData.length; i++) {
       let minIndex = i;
       let min = this.myData[i];
