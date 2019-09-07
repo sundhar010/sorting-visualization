@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit {
   }
   submit() {
     if(!this.selectedAlgo){
-      this.showNotification('top', 'right', 'info', 'Select an algo');
     }
     switch (this.selectedAlgo) {
       case 'Selection Sort':
