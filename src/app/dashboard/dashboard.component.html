@@ -4,17 +4,23 @@
     <div class="options">
 
       <div class="mdl-grid mdl-grid--nesting">
-        <div class="mdl-cell mdl-cell--5-col"> <span class="slider-lable">Number of Elements:</span>
+        <div class="mdl-cell mdl-cell--3-col"> <span class="slider-lable">Number of Elements:</span>
           <mat-slider class="example-margin" [disabled]="sliderDisabled" [invert]="sliderInvert" [max]="sliderMax"
-            [min]="sliderMin" [step]="sliderStep" [thumbLabel]="thumbLabel" [(ngModel)]="numberOfElements"
-            [vertical]="sliderVertical" (change)="changeArray()">
+            [min]="sliderMin" [step]="sliderStep" [thumbLabel]="thumbLabel" [(ngModel)]="numberOfElements" [disabled]="sortDissable"
+            [vertical]="sliderVertical"  (change)="changeArray()" >
+          </mat-slider>
+        </div>
+        <div class="mdl-cell mdl-cell--2-col"> <span class="slider-lable">Sorting Pace:</span>
+          <mat-slider class="example-margin" [disabled]="sliderDisabled" [invert]="sliderInvert" [max]="500"
+            [min]="10" [step]="10" [thumbLabel]="thumbLabel" [(ngModel)]="pace" [disabled]="sortDissable"
+            [vertical]="sliderVertical" >
           </mat-slider>
         </div>
         <div class="mdl-cell mdl-cell--5-col">
 
           <mat-form-field class="algo-select">
             <mat-label>Algo</mat-label>
-            <mat-select [(ngModel)]="selectedAlgo">
+            <mat-select [(ngModel)]="selectedAlgo" [disabled]="sortDissable">
               <mat-option *ngFor="let algo of allAlgos" [value]="algo">
                 {{algo}}
               </mat-option>
@@ -22,7 +28,7 @@
           </mat-form-field>
         </div>
         <div class="mdl-cell mdl-cell--2-col">
-          <button class=" sort-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+          <button class=" sort-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" [disabled]="sortDissable"
             (click)="submit()">
             Sort
           </button>

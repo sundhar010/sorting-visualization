@@ -3,6 +3,7 @@ import { map } from 'rxjs/operators';
 import * as d3 from 'd3';
 import { timer } from 'd3';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -12,6 +13,7 @@ export class DashboardComponent implements OnInit {
   constructor() {}
   @ViewChild('container', { static: false }) container: ElementRef;
   numberOfElements: Number = 30;
+  pace = 100;
   myData: Number[];
   sliderDisabled = false;
   sliderInvert = false;
@@ -26,6 +28,7 @@ export class DashboardComponent implements OnInit {
   selectedAlgo;
   chartWidth;
   chartHeight;
+  sortDissable=false;
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
   wait = ms => new Promise((r, j) => setTimeout(r, ms));
@@ -38,17 +41,27 @@ export class DashboardComponent implements OnInit {
     this.createChart('chart', this.myData);
   }
   changeArray() {
+    if(this.sortDissable){
+      return
+    }
     this.myData = this.randomArray(this.numberOfElements, 1000);
     this.createChart('chart', this.myData);
     // console.log('change');
   }
   submit() {
+    if(!this.selectedAlgo){
+      this.showNotification('top', 'right', 'info', 'Select an algo');
+    }
     switch (this.selectedAlgo) {
       case 'Selection Sort':
+        this.sortDissable = true;
         this.selectionSort();
+        this.sortDissable = false;
         break;
       case 'Bubble Sort':
+        this.sortDissable = true;
         this.bubbleSort();
+        this.sortDissable = false;
         break;
     }
   }
@@ -63,29 +76,29 @@ export class DashboardComponent implements OnInit {
           minIndex = j;
         }
         this.createChart('chart', this.myData, i, j);
-        await this.wait(100);
+        await this.wait(this.pace);
       }
       this.createChart('chart', this.myData, i, minIndex);
-      await this.wait(500);
+      await this.wait(this.pace * 2);
       this.myData[minIndex] = this.myData[i];
       this.myData[i] = min;
       this.createChart('chart', this.myData, i, minIndex);
-      await this.wait(200);
+      await this.wait(this.pace);
     }
   }
   async bubbleSort() {
     for(let i = 0; i < this.myData.length; i++){
       for(let j = 0; j < this.myData.length - i - 1 ; j++  ) {
         this.createChart('chart', this.myData, j, j+1);
-        await this.wait(100);
+        await this.wait(this.pace);
         if(this.myData[j] > this.myData[j + 1]) {
           this.createChart('chart', this.myData, j, j+1 );
-          await this.wait(500);
+          await this.wait(this.pace * 2);
           let temp = this.myData[j];
           this.myData[j] = this.myData[j + 1];
           this.myData[j + 1] = temp;
           this.createChart('chart', this.myData, j, j+1 );
-          await this.wait(200);
+          await this.wait(this.pace);
         }
       }
     }
@@ -141,4 +154,5 @@ export class DashboardComponent implements OnInit {
     this.chartWidth = this.container.nativeElement.offsetWidth;
     this.createChart('chart', this.myData);
   }
+
 }
