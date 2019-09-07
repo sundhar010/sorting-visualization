@@ -49,23 +49,21 @@ export class DashboardComponent implements OnInit {
     // console.log('change');
   }
   submit() {
-    if(!this.selectedAlgo){
+    if(this.sortDissable){
+      return
     }
     switch (this.selectedAlgo) {
       case 'Selection Sort':
         this.sortDissable = true;
         this.selectionSort();
-        this.sortDissable = false;
         break;
       case 'Bubble Sort':
         this.sortDissable = true;
         this.bubbleSort();
-        this.sortDissable = false;
         break;
       case 'Insertion Sort':
         this.sortDissable = true;
         this.insertionSort();
-        this.sortDissable = false;
         break;
     }
 
@@ -88,6 +86,7 @@ export class DashboardComponent implements OnInit {
       this.createChart('chart', this.myData, j+1);
       await this.wait(this.pace);
     }
+    this.sortDissable = false;
 
   }
   async selectionSort() {
@@ -109,6 +108,7 @@ export class DashboardComponent implements OnInit {
       this.createChart('chart', this.myData, i, minIndex);
       await this.wait(this.pace);
     }
+    this.sortDissable = false;
   }
   async bubbleSort() {
     for(let i = 0; i < this.myData.length; i++){
@@ -126,6 +126,7 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
+    this.sortDissable = false;
   }
   createChart(id, data, indexI = -1, indexJ = -1) {
     const margin = { top: 20, right: 10, bottom: 20, left: 10 };
