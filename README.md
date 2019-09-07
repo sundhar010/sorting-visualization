@@ -1,5 +1,7 @@
 # Sort
 
+![](src/assets/captured.gif)
+
 ## Deploy
 1.`ng build --prod --base-href "https://sundhar010.github.io/sorting-visualization/"`
 
