@@ -1,8 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener
+} from '@angular/core';
 import { map } from 'rxjs/operators';
 import * as d3 from 'd3';
 import { timer } from 'd3';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -24,11 +29,11 @@ export class DashboardComponent implements OnInit {
   showTicks = false;
   thumbLabel = true;
   sliderVertical = false;
-  allAlgos = ['Selection Sort', 'Bubble Sort', 'Insertion Sort'];
+  allAlgos = ['Selection Sort', 'Bubble Sort', 'Insertion Sort', 'Merge Sort'];
   selectedAlgo;
   chartWidth;
   chartHeight;
-  sortDissable=false;
+  sortDissable = false;
   randomArray = (length, max) =>
     [...new Array(length)].map(() => Math.round(Math.random() * max))
   wait = ms => new Promise((r, j) => setTimeout(r, ms));
@@ -41,16 +46,16 @@ export class DashboardComponent implements OnInit {
     this.createChart('chart', this.myData);
   }
   changeArray() {
-    if(this.sortDissable){
-      return
+    if (this.sortDissable) {
+      return;
     }
     this.myData = this.randomArray(this.numberOfElements, 1000);
     this.createChart('chart', this.myData);
     // console.log('change');
   }
   submit() {
-    if(this.sortDissable){
-      return
+    if (this.sortDissable) {
+      return;
     }
     switch (this.selectedAlgo) {
       case 'Selection Sort':
@@ -65,29 +70,70 @@ export class DashboardComponent implements OnInit {
         this.sortDissable = true;
         this.insertionSort();
         break;
+      case 'Merge Sort':
+        this.sortDissable = true;
+        this.mergeSorter();
+        break;
     }
+  }
+  async merge(a, start, mid, end) {
+    const arr = [];
+    let p = start,
+      q = mid + 1,
+      k = 0;
+    for (let i = start; i <= end; i++) {
+      if (p > mid) {
+        arr[k++] = a[q++];
+      } else if (q > end) {
+        arr[k++] = a[p++];
+      } else if (a[p] < a[q]) {
+        arr[k++] = a[p++];
+      } else {
+        arr[k++] = a[q++];
+      }
+      this.createChart('chart',this.myData,p,q);
+      await this.wait(this.pace);
+    }
+    for (let i = 0; i < k; i++) {
+      this.createChart('chart',this.myData,-1,start);
+      await this.wait(this.pace);
+      a[start++] = arr[i];
+    }
+  }
+  async mergeSort(a, l, h) {
+    if (l < h) {
+      let m = parseInt(((l + h) / 2) + '');
+      await this.mergeSort(a, l, m);
+      await this.mergeSort(a, m + 1, h);
+      await this.merge(a, l, m, h);
+    }
+  }
 
+  async mergeSorter() {
+    await this.mergeSort(this.myData,0,this.myData.length -1);
+    this.sortDissable = false;
   }
   async insertionSort() {
-    for(let i = 1; i < this.myData.length; i++) {
+    for (let i = 1; i < this.myData.length; i++) {
       let j = i - 1;
-      let key = this.myData[i];
-      let dummyData = Array.from(this.myData);
-      this.createChart('chart',dummyData,i);
+      const key = this.myData[i];
+      const dummyData = Array.from(this.myData);
+      this.createChart('chart', dummyData, i);
       await this.wait(this.pace);
-      while(this.myData[j] > key) {
-        if(j < 0) { break; }
-        this.myData[j+1] = this.myData[j];
-        this.createChart('chart',dummyData,i,j);
+      while (this.myData[j] > key) {
+        if (j < 0) {
+          break;
+        }
+        this.myData[j + 1] = this.myData[j];
+        this.createChart('chart', dummyData, i, j);
         await this.wait(this.pace);
         j--;
       }
       this.myData[j + 1] = key;
-      this.createChart('chart', this.myData, j+1);
+      this.createChart('chart', this.myData, j + 1);
       await this.wait(this.pace);
     }
     this.sortDissable = false;
-
   }
   async selectionSort() {
     for (let i = 0; i < this.myData.length; i++) {
@@ -111,17 +157,17 @@ export class DashboardComponent implements OnInit {
     this.sortDissable = false;
   }
   async bubbleSort() {
-    for(let i = 0; i < this.myData.length; i++){
-      for(let j = 0; j < this.myData.length - i - 1 ; j++  ) {
-        this.createChart('chart', this.myData, j, j+1);
+    for (let i = 0; i < this.myData.length; i++) {
+      for (let j = 0; j < this.myData.length - i - 1; j++) {
+        this.createChart('chart', this.myData, j, j + 1);
         await this.wait(this.pace);
-        if(this.myData[j] > this.myData[j + 1]) {
-          this.createChart('chart', this.myData, j, j+1 );
+        if (this.myData[j] > this.myData[j + 1]) {
+          this.createChart('chart', this.myData, j, j + 1);
           await this.wait(this.pace * 2);
-          let temp = this.myData[j];
+          const temp = this.myData[j];
           this.myData[j] = this.myData[j + 1];
           this.myData[j + 1] = temp;
-          this.createChart('chart', this.myData, j, j+1 );
+          this.createChart('chart', this.myData, j, j + 1);
           await this.wait(this.pace);
         }
       }
@@ -179,5 +225,4 @@ export class DashboardComponent implements OnInit {
     this.chartWidth = this.container.nativeElement.offsetWidth;
     this.createChart('chart', this.myData);
   }
-
 }
