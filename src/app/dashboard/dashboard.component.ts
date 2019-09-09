@@ -29,7 +29,13 @@ export class DashboardComponent implements OnInit {
   showTicks = false;
   thumbLabel = true;
   sliderVertical = false;
-  allAlgos = ['Selection Sort', 'Bubble Sort', 'Insertion Sort', 'Merge Sort'];
+  allAlgos = [
+    'Selection Sort',
+    'Bubble Sort',
+    'Insertion Sort',
+    'Merge Sort',
+    'Quick Sort'
+  ];
   selectedAlgo;
   chartWidth;
   chartHeight;
@@ -74,7 +80,46 @@ export class DashboardComponent implements OnInit {
         this.sortDissable = true;
         this.mergeSorter();
         break;
+      case 'Quick Sort':
+        this.sortDissable = true;
+        this.quickSorter();
+        break;
     }
+  }
+  async partition(a, low, high) {
+    const pivot = a[high];
+    this.createChart('chart', this.myData, high);
+    await this.wait(this.pace);
+    let k = low;
+    for (let i = low; i < high; i++) {
+      if (a[i] <= pivot) {
+        const t = a[i];
+        a[i] = a[k];
+        a[k] = t;
+        k++;
+      }
+      this.createChart('chart', this.myData, high, i);
+      await this.wait(this.pace);
+    }
+    const t = a[k];
+    a[k] = a[high];
+    a[high] = t;
+    this.createChart('chart', this.myData, k);
+    await this.wait(this.pace);
+
+    return k;
+  }
+  async quickSort(a, low, high) {
+    if (low < high) {
+      const pivotPosition = await this.partition(a, low, high);
+      await this.quickSort(a, low, pivotPosition - 1);
+      await this.quickSort(a, pivotPosition + 1, high);
+    }
+  }
+  async quickSorter() {
+    await this.quickSort(this.myData, 0, this.myData.length - 1);
+    this.sortDissable = false;
+    this.createChart('chart', this.myData);
   }
   async merge(a, start, mid, end) {
     const arr = [];
@@ -91,18 +136,18 @@ export class DashboardComponent implements OnInit {
       } else {
         arr[k++] = a[q++];
       }
-      this.createChart('chart',this.myData,p,q);
+      this.createChart('chart', this.myData, p, q);
       await this.wait(this.pace);
     }
     for (let i = 0; i < k; i++) {
-      this.createChart('chart',this.myData,-1,start);
+      this.createChart('chart', this.myData, -1, start);
       await this.wait(this.pace);
       a[start++] = arr[i];
     }
   }
   async mergeSort(a, l, h) {
     if (l < h) {
-      let m = parseInt(((l + h) / 2) + '');
+      const m = parseInt((l + h) / 2 + '');
       await this.mergeSort(a, l, m);
       await this.mergeSort(a, m + 1, h);
       await this.merge(a, l, m, h);
@@ -110,7 +155,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async mergeSorter() {
-    await this.mergeSort(this.myData,0,this.myData.length -1);
+    await this.mergeSort(this.myData, 0, this.myData.length - 1);
     this.sortDissable = false;
   }
   async insertionSort() {
