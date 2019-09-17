@@ -1,0 +1,82 @@
+{
+  "configVersion": 1,
+  "timestamp": 1568744375851,
+  "index": "https://sundhar010.github.io/sorting-visualization/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://sundhar010.github.io/sorting-visualization/favicon.ico",
+        "https://sundhar010.github.io/sorting-visualization/index.html",
+        "https://sundhar010.github.io/sorting-visualization/main-es2015.bd3273c4479a3ea801af.js",
+        "https://sundhar010.github.io/sorting-visualization/main-es5.78a087c818ee36e02f68.js",
+        "https://sundhar010.github.io/sorting-visualization/manifest.webmanifest",
+        "https://sundhar010.github.io/sorting-visualization/polyfills-es2015.9aaba84b721d907ae919.js",
+        "https://sundhar010.github.io/sorting-visualization/polyfills-es5.a5ec2c5f9c4a8eba6d56.js",
+        "https://sundhar010.github.io/sorting-visualization/runtime-es2015.27965c48d77c449cb93c.js",
+        "https://sundhar010.github.io/sorting-visualization/runtime-es5.ee2dcdf2e59a31c9da78.js",
+        "https://sundhar010.github.io/sorting-visualization/styles.a939f91b5931987185f5.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://sundhar010.github.io/sorting-visualization/assets/captured.gif",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-128x128.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-144x144.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-152x152.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-192x192.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-384x384.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-512x512.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-72x72.png",
+        "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://sundhar010.github.io/sorting-visualization/assets/captured.gif": "030c803db33e22d2dcf946c2c2021ab17c0c2b77",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "https://sundhar010.github.io/sorting-visualization/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "https://sundhar010.github.io/sorting-visualization/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "https://sundhar010.github.io/sorting-visualization/index.html": "734b53468dd967e3044a809ca1ce7803785b0156",
+    "https://sundhar010.github.io/sorting-visualization/main-es2015.bd3273c4479a3ea801af.js": "78b04788f40e62fd793dac4bb33d73722aa72b70",
+    "https://sundhar010.github.io/sorting-visualization/main-es5.78a087c818ee36e02f68.js": "9c8f823e1000b06c046a333a94986752b5daf048",
+    "https://sundhar010.github.io/sorting-visualization/manifest.webmanifest": "cd9492ed84de8deb133b2a7b14cf8a7df50ac6ee",
+    "https://sundhar010.github.io/sorting-visualization/polyfills-es2015.9aaba84b721d907ae919.js": "162d5ef9537363012a89027ca6670bf2b1f5204b",
+    "https://sundhar010.github.io/sorting-visualization/polyfills-es5.a5ec2c5f9c4a8eba6d56.js": "b22445e735723bf03f0bb8f71d19f0f161852733",
+    "https://sundhar010.github.io/sorting-visualization/runtime-es2015.27965c48d77c449cb93c.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "https://sundhar010.github.io/sorting-visualization/runtime-es5.ee2dcdf2e59a31c9da78.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "https://sundhar010.github.io/sorting-visualization/styles.a939f91b5931987185f5.css": "e53483bae287dd092bf8d314023e49c95463c972"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
