@@ -99,9 +99,6 @@ MIT
 @angular/router
 MIT
 
-@angular/service-worker
-MIT
-
 @swimlane/ngx-charts
 MIT
 MIT License
