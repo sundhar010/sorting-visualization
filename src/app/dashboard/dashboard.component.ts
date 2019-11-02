@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
     'Bubble Sort',
     'Insertion Sort',
     'Merge Sort',
-    'Quick Sort'
+    'Quick Sort',
+    'Radix Sort'
   ];
   selectedAlgo;
   chartWidth;
@@ -84,6 +85,9 @@ export class DashboardComponent implements OnInit {
         this.sortDissable = true;
         this.quickSorter();
         break;
+      case 'Radix Sort':
+        this.sortDissable = true;
+        this.radixSort();
     }
   }
   async partition(a, low, high) {
@@ -179,6 +183,40 @@ export class DashboardComponent implements OnInit {
       await this.wait(this.pace);
     }
     this.sortDissable = false;
+  }
+  async countsort(a,exp){
+    var digit ={1:[],2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 0:[]};
+    for(let i =0;i<a.length;i++ )
+{  
+  digit[Math.floor(a[i]/exp)%10].push(a[i])
+  this.createChart('chart', this.myData, i);
+  await this.wait(this.pace);
+}
+let index = 0
+const temp =Array.from(a)
+  for  (let i=0;i<10;i++)
+  { 
+    for (let j=0;j<digit[i].length;j++)
+    { 
+      let prevIndex=temp.indexOf(digit[i][j])
+      a[index]= digit[i][j]
+      this.createChart('chart', this.myData,prevIndex,index);
+      await this.wait(this.pace);
+      index = index +1
+    }
+
+  } 
+
+  }
+  async radixSort(){
+ var max =Math.max.apply(Math,this.myData)
+ var exp=1
+while (Math.floor(max/exp)>0.0)
+{
+  await this.countsort(this.myData,exp)
+  exp=exp*10
+}
+this.sortDissable = false;
   }
   async selectionSort() {
     for (let i = 0; i < this.myData.length; i++) {
