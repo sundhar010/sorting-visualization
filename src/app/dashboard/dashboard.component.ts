@@ -187,7 +187,7 @@ export class DashboardComponent implements OnInit {
   async countsort(a,exp){
     var digit ={1:[],2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 0:[]};
     for(let i =0;i<a.length;i++ )
-{  
+{
   digit[Math.floor(a[i]/exp)%10].push(a[i])
   this.createChart('chart', this.myData, i);
   await this.wait(this.pace);
@@ -195,9 +195,9 @@ export class DashboardComponent implements OnInit {
 let index = 0
 const temp =Array.from(a)
   for  (let i=0;i<10;i++)
-  { 
+  {
     for (let j=0;j<digit[i].length;j++)
-    { 
+    {
       let prevIndex=temp.indexOf(digit[i][j])
       a[index]= digit[i][j]
       this.createChart('chart', this.myData,prevIndex,index);
@@ -205,7 +205,7 @@ const temp =Array.from(a)
       index = index +1
     }
 
-  } 
+  }
 
   }
   async radixSort(){
